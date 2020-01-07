@@ -19,14 +19,5 @@ class AnimalPlus extends Animal {
 }
 var park = new Animal('dog', 4, 'animal');
 
-console.log('', park);
 
 
-var obj = {
-	say: function() {
-		return "Say!";
-	},
-	hello() {
-		return "Hello";
-	}
-}
