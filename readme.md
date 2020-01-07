@@ -27,3 +27,21 @@ Person.prototype.sayHello = function () {
 3. Person.prototype === (Person생성자로 만들어진 객체).__proto__
 4. (Person생성자로 만들어진 객체).__proto__.constructor === Person
 
+## 클래스(class)
+1. 자바스크립트의 클래스는 생성자 함수이다.
+2. new 키워드를 이용하여 호출한다.
+3. constructor 함수가 자동으로 실행되어 object를 생성한다.
+4. prototype 에 method 를 넣고싶다면 constructor 밖에 method 를 정의해준다.
+```javascript
+class Animal {
+	constructor(name, age) {
+		this.name = name;
+		this.age = age;
+	}
+	say() {
+		return `Hello ${this.name}`;
+	}
+}
+var park = new Animal('dog', 4);
+```
+
