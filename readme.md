@@ -26,7 +26,7 @@ Person.prototype.sayHello = function () {
 2. Person.prototype.constructor === Person
 3. Person.prototype === (Person생성자로 만들어진 객체).\_\_proto\_\_
 4. (Person생성자로 만들어진 객체).\_\_proto\_\_.constructor === Person
-* 자바스크립트 표준은 아니지만, 거의 모든 브라우져들이 호환을 하고 있다.
+> '자바스크립트 표준은 아니지만, 거의 모든 브라우져들이 호환을 하고 있다.'
 
 ## 클래스(class)
 1. 자바스크립트의 클래스는 <b>생성자 함수</b>이다.
@@ -82,6 +82,36 @@ obj2.hello();
 
 ### \_\_proto\_\_ 의 대체제
 1. <b>Object.create(부모객체)</b>
+2. 자식 객체의 요소들을 정의해서 넣어주어야 한다.
 ```javascript
-obj2 = Object.create(obj1);
+var obj2 = Object.create(obj1);
+obj2.lulu = "lulu";
+obj2.soso = function() {
+	return "soso";
+}
 ```
+
+## method 의 this(실행주체)를 변경하여 실행 (call, bind, apply)
+1. method 의 **this(실행주체)를 변경**하여 실행
+2. 다른객체 내부의 method를 실행하는 obj에서 실행 할 수 있다.
+```javascript
+var obj1 = {
+	name: 'mkp',
+	say: function() {
+		return "Say!";
+	},
+	hello() {
+		return "Hello " + this.name;
+	},
+}
+
+var obj2 = {
+	name: "lulu",
+}
+
+var tt = obj1.hello.call(obj2);
+
+console.log('', tt);
+```
+
+

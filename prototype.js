@@ -9,17 +9,19 @@ Person.prototype.sayHello = function() {
 var kim = new Person('kim', 31);
 
 var obj1 = {
+	name: 'mkp',
 	say: function() {
 		return "Say!";
 	},
 	hello() {
-		return "Hello";
+		return "Hello " + this.name;
 	},
 }
+
 var obj2 = {
-	lulu: "lulu",
+	name: "lulu",
 }
-obj2 = Object.create(obj1);
 
+var tt = obj1.hello.call(obj2);
 
-console.log('', obj2.hello());
+console.log('', tt);
