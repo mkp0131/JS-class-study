@@ -27,3 +27,36 @@ Person.prototype.sayHello = function () {
 3. Person.prototype === (Person생성자로 만들어진 객체).__proto__
 4. (Person생성자로 만들어진 객체).__proto__.constructor === Person
 
+## 클래스(class)
+1. 자바스크립트의 클래스는 생성자 함수이다.
+2. new 키워드를 이용하여 호출한다.
+3. constructor 함수가 자동으로 실행되어 object를 생성한다.
+4. prototype 에 method 를 넣고싶다면 constructor 밖에 method 를 정의해준다.
+```javascript
+class Animal {
+	constructor(name, age) {
+		this.name = name;
+		this.age = age;
+	}
+	say() {
+		return `Hello ${this.name}`;
+	}
+}
+var park = new Animal('dog', 4);
+```
+
+### 클래스 상속
+1. 부모 클래스의 요소를 상속받아 새로운 클래스를 생성
+2. 기존 method / constructor 에 새로운 요소를 추가할시 super(부모클래스 생성자) 를 사용.
+```javascript
+class AnimalPlus extends Animal {
+	constructor(name, age, type) {
+		super(name, age);
+		this.type = type;
+	}
+	say() {
+		return super.say() + ` You are ${this.type}`;
+	}
+}
+```
+
