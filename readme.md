@@ -13,7 +13,7 @@ var kim = new Person('kim', 31);
 ```
 
 ### 프로토타입(prototype)
-1. 같은 생성자 함수로 만들어진 객체들은 모두 <b>prototype</b> 이라는 객체를 공유한다.
+1. 같은 생성자 함수로 만들어진 객체들은 모두 <b>prototype</b> 이라는 객체를 공유한다.(일반 객체에는 없음!)
 2. prototype 에 <b>공통적</b>으로 사용할 method 를 넣어 사용한다.
 ```javascript
 Person.prototype.sayHello = function () {
@@ -49,6 +49,7 @@ var park = new Animal('dog', 4);
 ### 클래스 상속
 1. <b>extends Animal</b> 부모 클래스의 요소를 상속받아 새로운 클래스를 생성
 2. 기존 method / constructor 에 새로운 요소를 추가할시 <b>super</b>(부모클래스 생성자) 를 사용.
+3. super: **부모생성자.call(this, arguments)** 와 동일
 ```javascript
 class AnimalPlus extends Animal {
 	constructor(name, age, type) {
@@ -82,8 +83,14 @@ obj2.hello();
 
 ### \_\_proto\_\_ 의 대체제
 1. <b>Object.create(부모객체)</b>
-2. 자식 객체의 요소들을 정의해서 넣어주어야 한다.
+2. 빈객체를 리턴하고 빈객체의 \_\_proto\_\_ 에 부모객체를 참조한다.  새로운 빈 객체를 생성하고, 빈객체의 \_\_proto\_\_ 에 부모객체를 링크시킨다.
+3. 자식 객체의 요소들을 정의해서 넣어주어야 한다.
 ```javascript
+// __proto__
+var obj3 = {};
+obj3.__proto__ = obj1;
+
+// Object.create()
 var obj2 = Object.create(obj1);
 obj2.lulu = "lulu";
 obj2.soso = function() {
@@ -114,4 +121,33 @@ var tt = obj1.hello.call(obj2);
 console.log('', tt);
 ```
 
+## 생성자 함수를 통한 객체의 상속
+1. 부모생성자를 call 을 이용하여 자식생성자에서 실행한다.
+```javascript
+function Person(name, age) {
+	this.name = name;
+	this.age = age;
+}
+function PersonPlus(name, age, type) {
+	Person.call(this, name, age);
+	this.type = type;
+}
+```
+### method 를 상속 받는 방법
+#### 1. \_\_proto\_\_ 을 이용한 방법
+```javascript
+Person.prototype.sayHello = function() {
+	return `hello ${this.name}`;
+}
+
+PersonPlus.prototype.__proto__ = Person.prototype;
+```
+
+#### 1. Object.create() 을 이용한 방법
+```javascript
+// 자식객체의 prototype 에 Person.prototype 이 __proto__ 로 링크된 객체로 입력
+PersonPlus.prototype = Object.create(Person.prototype)
+// 기존의 constructor 를 잃어버렸기 때문에 원래 자신의 constructor 를 입력해준다.
+PersonPlus.prototype.constructor = PersonPlus;
+```
 
