@@ -150,4 +150,5 @@ PersonPlus.prototype = Object.create(Person.prototype)
 // 기존의 constructor 를 잃어버렸기 때문에 원래 자신의 constructor 를 입력해준다.
 PersonPlus.prototype.constructor = PersonPlus;
 ```
-
+## 참고사항
+![참고이미지](./img1.jpg)
